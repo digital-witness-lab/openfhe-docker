@@ -48,3 +48,6 @@ RUN git clone https://github.com/openfheorg/openfhe-python.git && \
     cmake .. && \
     make -j $threads && \
     make install
+
+ENV PYTHONPATH=/usr/local/lib:$PYTHONPATH
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
