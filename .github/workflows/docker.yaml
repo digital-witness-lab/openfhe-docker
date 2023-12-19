@@ -14,7 +14,7 @@ jobs:
         pythontag: [v0.8.3, v0.8.2]
         latest: [false]
         include:
-          - devtag: v1.1.12
+          - devtag: v1.1.2
             pythontag: v0.8.3
             latest: true
 
