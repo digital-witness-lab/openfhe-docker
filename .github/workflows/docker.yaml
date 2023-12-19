@@ -34,7 +34,7 @@ jobs:
           push: true
           tags:
             mynameisfiber/openfhe:d${{ matrix.devtag }}-p${{ matrix.pythontag }}
-          build-args:
+          build-args: |
             devtag: ${{ matrix.devtag }}
             pythontag: ${{ matrix.pythontag }}
       - if: ${{ matrix.latest }}
@@ -43,6 +43,6 @@ jobs:
           push: true
           tags:
             mynameisfiber/openfhe:latest
-          build-args:
+          build-args: |
             devtag: ${{ matrix.devtag }}
             pythontag: ${{ matrix.pythontag }}
