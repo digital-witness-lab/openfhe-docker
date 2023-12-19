@@ -1,0 +1,48 @@
+name: dockerbuild
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        devtag: [v1.1.2, v1.1.1, v1.0.1]
+        pythontag: [v0.8.3, v0.8.2]
+        latest: [false]
+        include:
+          devtag: v1.1.12
+          pythontag: v0.8.3
+          latest: true
+
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags:
+            mynameisfiber/openfhe:d${{ matrix.devtag }}-p${{ matrix.pythontag }}
+          build-args:
+            devtag: ${{ matrix.devtag }}
+            pythontag: ${{ matrix.pythontag }}
+      - if: ${{ matrix.latest }}
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags:
+            mynameisfiber/openfhe:latest
+          build-args:
+            devtag: ${{ matrix.devtag }}
+            pythontag: ${{ matrix.pythontag }}
