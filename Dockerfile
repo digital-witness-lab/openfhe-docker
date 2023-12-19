@@ -1,4 +1,4 @@
-FROM python:3.11-bookworm
+FROM python:3.11-slim-bookworm
 
 ARG devtag=v1.1.1
 ARG pythontag=v0.8.2
