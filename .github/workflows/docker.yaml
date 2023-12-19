@@ -14,9 +14,9 @@ jobs:
         pythontag: [v0.8.3, v0.8.2]
         latest: [false]
         include:
-          devtag: v1.1.12
-          pythontag: v0.8.3
-          latest: true
+          - devtag: v1.1.12
+            pythontag: v0.8.3
+            latest: true
 
     steps:
       - name: Set up QEMU
@@ -32,17 +32,15 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags:
-            mynameisfiber/openfhe:d${{ matrix.devtag }}-p${{ matrix.pythontag }}
-          build-args: |
-            devtag: ${{ matrix.devtag }}
-            pythontag: ${{ matrix.pythontag }}
+          tags: mynameisfiber/openfhe:d${{ matrix.devtag }}-p${{ matrix.pythontag }}
+          build-args:
+            - devtag: ${{ matrix.devtag }}
+              pythontag: ${{ matrix.pythontag }}
       - if: ${{ matrix.latest }}
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags:
-            mynameisfiber/openfhe:latest
-          build-args: |
-            devtag: ${{ matrix.devtag }}
-            pythontag: ${{ matrix.pythontag }}
+          tags: mynameisfiber/openfhe:latest
+          build-args:
+            - devtag: ${{ matrix.devtag }}
+              pythontag: ${{ matrix.pythontag }}
